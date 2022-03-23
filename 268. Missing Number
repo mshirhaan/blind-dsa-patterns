@@ -1,0 +1,7 @@
+var missingNumber = function(nums) {
+    let sum = nums.reduce((sum,num)=>sum+num);
+    return ((nums.length*(nums.length+1))/2)-sum;
+};
+
+//sum of all n natural numbers formula is used to find the missing number
+//another way is to xor all the given array elements with all elements from 0 till n
