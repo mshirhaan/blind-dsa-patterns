@@ -1,0 +1,22 @@
+var hammingWeight = function(n) {
+    let res = 0;
+    
+    while(n) {
+        res += n%2;
+        n=n>>1;
+    }
+    return res;
+};
+
+
+
+//Even more faster is the below solution
+var hammingWeight = function(n) {
+    let res = 0;
+    
+    while(n) {
+        n= n&(n-1);
+        res += 1;
+    }
+    return res;
+};
