@@ -1,0 +1,41 @@
+var canFinish = function(numCourses, prerequisites) {
+
+    //just setting the adjacency list.
+    let arr = [...Array(numCourses).keys()];
+    let adjacencyList = Object.fromEntries(arr.map(key => [key, []]));
+
+    for (let [source, target] of prerequisites) {
+        adjacencyList[source].push(target);
+    }
+
+    let visited = {};
+
+    function dfs(n) {
+        if (visited[n]) {
+            return false;
+        }
+        if (adjacencyList[n].length == 0) {
+            return true;
+        }
+        visited[n] = true;
+        for (let course of adjacencyList[n]) {
+            if (!dfs(course)) {
+                return false;
+            }
+        }
+        visited[n] = false;
+        
+        //Reset the prerequisites as the course can be completed.
+        //Otherwise there will be duplicate executions.
+        adjacencyList[n] = [];
+        return true;
+    }
+
+    //We are looping like this because the graph can be disconnected.
+    for (let i = 0; i < numCourses; i++) {
+        if (!dfs(i)) {
+            return false;
+        }
+    }
+    return true;
+}
