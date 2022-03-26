@@ -1,0 +1,16 @@
+https://leetcode.com/problems/linked-list-cycle/
+//We can also solve this using Floyds Tortoise Hare(slow pointer and fast pointer technique) to avoid O(n) space complexity
+
+var hasCycle = function(head) {
+    let map = new Map();
+    let cur = head;
+    while(cur) {
+        if(map.get(cur)) {
+            return true;
+        } else {
+            map.set(cur, true);
+            cur = cur.next;
+        }
+    }
+    return false;
+};
