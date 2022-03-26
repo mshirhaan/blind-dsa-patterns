@@ -1,0 +1,13 @@
+https://leetcode.com/problems/jump-game/
+
+var canJump = function(nums) {    
+    let min = 1;
+    for(let i = nums.length-2; i>=0;i--) {
+        if(nums[i]<min) {
+            min++;
+        } else {
+            min = 1;
+        }
+    }
+    return min == 1;
+};
