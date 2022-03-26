@@ -1,0 +1,27 @@
+https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/submissions/
+
+var zigzagLevelOrder = function(root) {
+    if(!root) return [];
+    let queue = [root];
+    let result = [];
+    
+    let direction = false;
+    
+    while(queue.length) {
+        direction = !direction;
+        let temp = [];
+        let levelLength = queue.length;
+        for(let i = 0; i < levelLength; i++) {
+            let node = queue.shift();
+            if(direction) {
+                temp.push(node.val);
+            } else {
+                temp.unshift(node.val);
+            }
+            if(node.left) queue.push(node.left);
+            if(node.right) queue.push(node.right);
+        }
+        result.push(temp);
+    }
+    return result;
+};
