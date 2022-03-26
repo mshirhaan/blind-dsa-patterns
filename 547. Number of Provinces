@@ -1,0 +1,27 @@
+https://leetcode.com/problems/number-of-provinces/
+
+//In this problem, even though nodes start from 1 to n, I have considered it from 0 to n-1 for ease of looping and it works.
+//https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/ this is the actual premium problem which belongs to blind 75 pattern and
+//this problem we solved is similar to it.
+
+var findCircleNum = function(isConnected) {
+    let visited = {};
+    let result = 0;
+    let n = isConnected.length;
+    for(let i = 0; i < n; i++) {
+        if(!visited[i]) {
+            result++;
+            dfs(i);
+        }
+    }
+    return result;
+    
+    function dfs(node) {
+        visited[node] = true;
+        for(let i = 0; i<n; i++) {
+            if(isConnected[node][i] && !visited[i]) {
+                dfs(i);
+            }
+        }
+    }
+};
