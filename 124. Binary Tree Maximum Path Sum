@@ -1,0 +1,18 @@
+https://leetcode.com/problems/binary-tree-maximum-path-sum/
+
+var maxPathSum = function(root) {
+    let result = -Infinity;
+    
+    function sol(node) {
+        if(!node) return -Infinity;
+        let val = node.val;
+        
+        let left = sol(node.left);
+        let right = sol(node.right);
+        result = Math.max(result, val+left+right, val+left, val+right, val);
+        return Math.max(val, val+left, val+right);
+    }
+    
+    sol(root);
+    return result;
+};
