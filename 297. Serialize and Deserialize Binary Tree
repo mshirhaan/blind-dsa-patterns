@@ -1,0 +1,125 @@
+https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+
+//The following solution which I wrote myself works but the time complexity increases due to the large amount of empty spaces for considering all positions of a full binary tree.
+
+/**
+ * Encodes a tree to a single string.
+ *
+ * @param {TreeNode} root
+ * @return {string}
+ */
+var serialize = function(root) {
+    if(!root) {
+        return null;
+    }
+    let data = [];
+    let queue = [[root,0]];
+
+    while(queue.length) {
+        let [node,index] = queue.shift();
+        data[index] = node.val;
+        if(node.left) {
+            queue.push([node.left,2*index+1]);
+        }
+        if(node.right) {
+            queue.push([node.right,2*index+2]);
+        }
+    }
+    return data.toString();
+};
+
+/**
+ * Decodes your encoded data to tree.
+ *
+ * @param {string} data
+ * @return {TreeNode}
+ */
+var deserialize = function(data) {
+    if(!data) {
+        return null;
+    }
+    
+    let arr = data.split(',');
+    let root = new TreeNode();
+    
+    function sol(node, index) {
+            node.val = Number(arr[index]);
+            if(arr[index*2+1]) {
+                let left = new TreeNode();
+                node.left = left;
+                sol(left, index*2+1);
+            }
+            if(arr[index*2+2]) {
+                let right = new TreeNode();
+                node.right = right;
+                sol(right, index*2+2);
+            }
+    }
+    sol(root, 0);
+    return root;
+};
+
+/**
+ * Your functions will be called as such:
+ * deserialize(serialize(root));
+ */
+ 
+ //The below solution written by myself
+ var serialize = function(root) {
+    if(!root) {
+        return null;
+    }
+    let data = [];
+    let queue = [[root,0]];
+
+    function dfs(node) {
+        data.push(node.val);
+        if(node.left) {
+            dfs(node.left);
+        } else {
+            data.push(null);
+        }
+        if(node.right) {
+            dfs(node.right);
+        } else {
+            data.push(null);
+        }
+    }
+    dfs(root);
+    return data.toString();
+};
+
+var deserialize = function(data) {
+    if(!data) {
+        return null;
+    }
+    data = data.split(',');
+    let root = new TreeNode();
+
+    let current = 0;
+    
+    function dfs(root) {
+        if(current>=data.length) {
+            return;
+        }
+        root.val = data[current];
+        current++;
+        if(data[current]) {
+            let left = new TreeNode();
+            root.left = left;
+            dfs(left);
+        } else {
+            root.left = null;
+        }
+        current++;
+        if(data[current]) {
+            let right = new TreeNode();
+            root.right = right;
+            dfs(right);
+        } else {
+            root.right = null;
+        }
+        return root;
+    }
+    return dfs(root);
+};
