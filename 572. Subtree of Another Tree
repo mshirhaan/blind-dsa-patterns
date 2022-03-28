@@ -44,3 +44,18 @@ var isSubtree = function(root, subRoot) {
     }
     return dfs(root);
 };
+
+
+//The issue above was inside dfs method, line number 38, if there was a left on root, line 38 will return the value and the right will not be checked. 
+// the following change to dfs method works.
+
+    function dfs(root) {
+        if (sameTree(root, subRoot)) return true;
+        if (root.left  && dfs(root.left)) {
+            return true;
+        }
+        if (root.right && dfs(root.right)) {
+            return true;
+        }
+        return false;
+    }
