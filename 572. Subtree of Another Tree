@@ -1,0 +1,46 @@
+https://leetcode.com/problems/subtree-of-another-tree/
+
+var isSubtree = function(root, subRoot) {
+    if (!subRoot) return true;
+    if (!root) return false;
+    if (sameTree(root, subRoot)) return true;
+
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+
+    function sameTree(root1, root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if ((root1 == null || root2 == null) || root1.val != root2.val) {
+            return false;
+        }
+        return sameTree(root1.left, root2.left) && sameTree(root1.right, root2.right);
+    }
+};
+
+
+//Following code I tried myself but it did not work for base case where the subtree is having only one node which is is found at the leaf of main tree.
+
+var isSubtree = function(root, subRoot) {
+    function sameTree(root1, root2) {
+        if (root1 == null && root2 == null) {
+            return true;
+        }
+        if ((root1 == null || root2 == null) || root1.val != root2.val) {
+            return false;
+        }
+        return sameTree(root1.left, root2.left) && sameTree(root1.right, root2.right);
+    }
+
+    function dfs(root) {
+        if (sameTree(root, subRoot)) return true;
+        if (root.left) {
+            return dfs(root.left);
+        }
+        if (root.right) {
+            return dfs(root.right);
+        }
+        return false;
+    }
+    return dfs(root);
+};
