@@ -1,0 +1,17 @@
+https://leetcode.com/problems/validate-binary-search-tree/
+
+var isValidBST = function(root) {
+    function sol(root, min, max) {
+        if(!root) {
+            return true;
+        }
+        if(root.val >= max) {
+            return false;
+        }
+        if(root.val <= min) {
+            return false;
+        }
+        return sol(root.left,min,root.val) && sol(root.right, root.val, max);
+    }
+    return sol(root, Number.NEGATIVE_INFINITY, Number.INFINITY);
+};
