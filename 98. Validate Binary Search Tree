@@ -5,10 +5,7 @@ var isValidBST = function(root) {
         if(!root) {
             return true;
         }
-        if(root.val >= max) {
-            return false;
-        }
-        if(root.val <= min) {
+        if(root.val >= max || root.val <= min) {
             return false;
         }
         return sol(root.left,min,root.val) && sol(root.right, root.val, max);
