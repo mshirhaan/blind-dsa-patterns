@@ -1,0 +1,11 @@
+https://leetcode.com/problems/group-anagrams/
+
+var groupAnagrams = function(strs) {
+    let map = new Map();
+    for(let s of strs) {
+        let key = s.split("").sort().toString();
+        if(!map.get(key)) map.set(key, []);
+        map.get(key).push(s);
+    }
+    return [...map.values()];
+};
