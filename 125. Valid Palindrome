@@ -1,0 +1,23 @@
+https://leetcode.com/problems/valid-palindrome/submissions/
+
+var isPalindrome = function(s) {
+    let i = 0;
+    let j = s.length - 1;
+
+    while (i <= j) {
+        let c1 = s[i].toLowerCase();
+        let c2 = s[j].toLowerCase();
+        if (((c1 >= 'a' && c1 <= 'z') || c1 >= '0' && c1 <= '9') && ((c2 >= 'a' && c2 <= 'z') || c2 >= '0' && c2 <= '9') && c1 != c2) {
+            return false;
+        }
+        if ((c1 < 'a' || c1 > 'z') && (c1 < '0' || c1 > '9')) {
+            i++;
+        } else if ((c2 < 'a' || c2 > 'z') && (c2 < '0' || c2 > '9')) {
+            j--;
+        } else {
+            i++;
+            j--;
+        }
+    }
+    return true;
+};
